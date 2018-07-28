@@ -1,0 +1,76 @@
+body {
+    background: url("/images/back.png") repeat;
+}
+
+.App {
+    margin: 50px auto;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.card {
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.outcome {
+    margin: 0 auto 12px;
+    width: 36%;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background-color: rgb(217, 237, 247);
+    color: rgb(49, 112, 143);
+    border-radius: 5px;
+}
+
+.score {
+    display: inline-block;
+    width: 18%;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #444444;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+button {
+    display: inline-block;
+    width: 12%;
+    height: 36px;
+    box-sizing: border-box;
+}
+
+#deal-button {
+    background-color: rgb(91, 192, 222);
+    border-color: rgb(90, 150, 180);
+}
+
+#deal-button:hover {
+    background-color: rgb(84, 150, 180);
+    cursor: pointer;
+}
+
+#hit-button {
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(82, 153, 82);
+}
+
+#hit-button:hover {
+    background-color: rgb(73, 145, 73);
+    cursor: pointer;
+}
+
+#stand-button {
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(170, 66, 65);
+}
+
+#stand-button:hover {
+    background-color: rgb(178, 80, 76);
+    cursor: pointer;
+}
