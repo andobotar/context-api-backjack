@@ -13,7 +13,7 @@ export class ThemeProvider extends Component {
         theme: 'basic'
     }
     
-    switchTheme = () => {
+    switchThemeHandler = () => {
         this.setState( (prevState) => {
             return {theme: prevState.theme === 'basic' ? 'adam' : 'basic'}
         });
@@ -21,7 +21,7 @@ export class ThemeProvider extends Component {
 
     render() {
         return (
-            <ThemeContext.Provider value={{theme: themes[this.state.theme], switchTheme: this.switchTheme}}>
+            <ThemeContext.Provider value={{theme: themes[this.state.theme], switchTheme: this.switchThemeHandler}}>
                 {this.props.children}
             </ThemeContext.Provider>
         );

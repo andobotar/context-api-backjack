@@ -3,7 +3,6 @@ import shuffle from 'lodash/shuffle';
 
 import Hand from './Hand';
 import Interface from './Interface';
-import { ThemeContext } from '../context/ThemeContext';
 
 class Table extends Component {
     fullDeck = [
@@ -182,13 +181,6 @@ class Table extends Component {
                     playerScore={this.countScore(this.state.playerHand)}
                 />
                 <Hand cards={this.state.playerHand} />
-                <ThemeContext.Consumer>
-                    {({switchTheme}) => 
-                        <button onClick={switchTheme}style={{'margin-top': 80, 'background-color': '#ff8400', 'border': 'none'}}>
-                            Switch Theme
-                        </button>
-                    }
-                </ThemeContext.Consumer>
             </div>
         );
     }

@@ -7,9 +7,9 @@ const Card = ({ face }) => {
     return (
         <div className="card">
             <ThemeContext.Consumer>
-                {({theme}) =>
+                {({theme, switchTheme}) =>
                     face === '00' ? (
-                        <img src={`images/${theme}.png`} alt="card" />
+                        <img src={`images/${theme}.png`} onClick={switchTheme} style={styles.Pointer} alt="card" />
                     ) : (
                         <img src={`images/${face}.png`} alt="card" />
                     )
@@ -20,3 +20,9 @@ const Card = ({ face }) => {
 };
 
 export default Card;
+
+const styles = {
+    Pointer: {
+        cursor: 'pointer'
+    }
+}
