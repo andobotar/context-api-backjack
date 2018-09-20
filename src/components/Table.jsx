@@ -3,75 +3,21 @@ import shuffle from 'lodash/shuffle';
 
 import Hand from './Hand';
 import Interface from './Interface';
+import { fullDeck } from "../util/fullDeck";
 
 class Table extends Component {
-    fullDeck = [
-        's1',
-        's2',
-        's3',
-        's4',
-        's5',
-        's6',
-        's7',
-        's8',
-        's9',
-        's10',
-        's11',
-        's12',
-        's13',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'h7',
-        'h8',
-        'h9',
-        'h10',
-        'h11',
-        'h12',
-        'h13',
-        'c1',
-        'c2',
-        'c3',
-        'c4',
-        'c5',
-        'c6',
-        'c7',
-        'c8',
-        'c9',
-        'c10',
-        'c11',
-        'c12',
-        'c13',
-        'd1',
-        'd2',
-        'd3',
-        'd4',
-        'd5',
-        'd6',
-        'd7',
-        'd8',
-        'd9',
-        'd10',
-        'd11',
-        'd12',
-        'd13'
-    ];
 
     state = {
-        deck: [...this.fullDeck],
         computerHand: ['00', '00'],
         playerHand: ['00', '00'],
         message: "Press 'Deal' to start the game",
-        status: 'playing'
+        playing: false
     };
 
     deal = () => {
-        let cards = shuffle([...this.fullDeck]);
-        let computersDealtHand = ['00'];
-        let playersDealtHand = [];
+        const cards = shuffle(fullDeck);
+        const computersDealtHand = ['00'];
+        const playersDealtHand = [];
 
         // player's hands, deal 2 cards
         playersDealtHand.push(cards.pop());
@@ -89,13 +35,13 @@ class Table extends Component {
             computerHand: computersDealtHand,
             playerHand: playersDealtHand,
             deck: cards,
-            status: 'playing',
+            playing: true,
             message: 'Hit or Stand?'
         });
     };
 
     hit = () => {
-        if (this.state.status === 'gameover') return;
+        if (!this.state.playing) return;
 
         let playersDealtHand = [...this.state.playerHand];
 
@@ -106,7 +52,7 @@ class Table extends Component {
         if (score > 21) {
             this.setState({
                 message: 'OVERDRAWN! Computer Wins!',
-                status: 'gameover'
+                playing: false
             });
         }
 
@@ -117,21 +63,20 @@ class Table extends Component {
     };
 
     stand = () => {
-        if (this.state.status === 'gameover') return;
+        if (!this.state.playing) return;
 
-        let computersFullHand = [...this.state.computerHand];
+        const computersFullHand = [...this.state.computerHand];
         // remove hidden Card
         computersFullHand.shift();
         // we shuffle every time so you don't cheat by checking component state :D
-        let shuffled = shuffle([...this.state.deck]);
+        const shuffled = shuffle([...this.state.deck]);
         // add a real Card instead of the face-down first Card
         computersFullHand.unshift(shuffled.pop());
 
         let computerScore = this.countScore(computersFullHand);
-        let playerScore = this.countScore(this.state.playerHand);
 
         // compute game status while dealing cards to the dealer
-        while (computerScore < playerScore || computerScore < 17) {
+        while (computerScore < 17) {
             // deal a Card
             computersFullHand.push(shuffled.pop());
             computerScore = this.countScore(computersFullHand);
@@ -140,7 +85,7 @@ class Table extends Component {
         this.setState({
             computerHand: computersFullHand,
             deck: shuffled,
-            status: 'gameover',
+            playing: false,
             message: computerScore > 21 ? 'Computer has overdrawn. Player Wins!' : 'Computer Wins'
         });
     };
